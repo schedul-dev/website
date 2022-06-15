@@ -14,7 +14,7 @@
 		loading.value = true
 
 try {
-		const res = await fetch('http://localhost:3000/schedule/', {method: 'post', mode: 'cors',  headers: {'Content-Type': 'application/json'}, body: JSON.stringify({apiKey: apiKey.value, title: title.value, markdown: markdown.value, scheduleDate: scheduleDate.value})})
+		const res = await fetch('https://zealous-gray-baseball-cap.cyclic.app/schedule', {method: 'post', mode: 'cors',  headers: {'Content-Type': 'application/json'}, body: JSON.stringify({apiKey: apiKey.value, title: title.value, markdown: markdown.value, scheduleDate: scheduleDate.value})})
 
 		success.value = true
 } catch(e) {
