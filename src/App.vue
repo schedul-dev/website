@@ -9,10 +9,18 @@
 	const error = ref(false)
 	const success = ref(false)
 
-	function onSubmit() {
+	async function onSubmit() {
 		loading.value = true
 
-		// TODO
+try {
+		const res = await fetch('http://localhost:3000/schedule/', {method: 'post', mode: 'cors',  headers: {'Content-Type': 'application/json'}, body: {h: 8}})
+
+		success.value = true
+} catch(e) {
+error.value = true
+alert(e.message)
+}
+		
 		
 	}
 </script>
