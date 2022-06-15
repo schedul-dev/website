@@ -1,8 +1,9 @@
 <script setup>
 	import { ref } from 'vue'
 
-	const apiKey = ref(null)
-	const draftId = ref(null)
+	const apiKey = ref('')
+	const title = ref('')
+	const markdown = ref('')
 	const scheduleDate = ref(Date.now())
 
 	const loading = ref(false)
@@ -13,12 +14,11 @@
 		loading.value = true
 
 try {
-		const res = await fetch('http://localhost:3000/schedule/', {method: 'post', mode: 'cors',  headers: {'Content-Type': 'application/json'}, body: {h: 8}})
+		const res = await fetch('http://localhost:3000/schedule/', {method: 'post', mode: 'cors',  headers: {'Content-Type': 'application/json'}, body: JSON.stringify({apiKey: apiKey.value, title: title.value, markdown: markdown.value, scheduleDate: scheduleDate.value})})
 
 		success.value = true
 } catch(e) {
 error.value = true
-alert(e.message)
 }
 		
 		
@@ -36,12 +36,18 @@ alert(e.message)
 		@submit.prevent="onSubmit">
 		<div class="form-field">
 			<label for="api-key">DEV API Key</label>
-			<input type="text" id="api-key" v-model="apiKey"/>
+			<input required type="text" id="api-key" v-model="apiKey"/>
 		</div>
 
 		<div class="form-field">
-			<label for="draft-id">Draft article ID</label>
-			<input type="text" id="draft-id" v-model="draftId"/>
+			<label for="title">Title</label>
+			<input required type="text" id="title" v-model="title"/>
+
+		</div>
+
+		<div class="form-field">
+			<label for="markdown">Body</label>
+			<textarea  required id="markdown" v-model="markdown"></textarea>
 
 		</div>
 
@@ -69,7 +75,8 @@ alert(e.message)
 @apply flex justify-between items-center;
 }
 
-.form-field input {
+.form-field input,
+.form-field textarea {
 @apply w-52 bg-slate-900;
 }
 </style>
